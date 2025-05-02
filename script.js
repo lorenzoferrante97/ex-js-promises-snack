@@ -52,16 +52,48 @@
 
 // SNACK 2 --------------------------------------
 
+// let counterLanci = 0;
+
+// const lanciaDado = (counterLanci) => {
+//   const generateNum = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       const risultato = Math.floor(Math.random() * 6) + 1;
+//       if (counterLanci % 5 == 0) {
+//         reject('ops! il dado è caduto dal tavolo, rilancio');
+//       } else {
+//         resolve(risultato);
+//       }
+//     }, 5000);
+//   });
+
+//   return generateNum;
+// };
+
+// const giocoDadi = setInterval(() => {
+//   console.log('lancio del dado...');
+//   counterLanci++;
+//   const lancio = lanciaDado(counterLanci);
+//   lancio
+//     .then((risDado) => {
+//       console.log("E' uscito ", risDado);
+//       counterLanci == 10 && clearInterval(giocoDadi);
+//     })
+//     .catch((err) => console.error(err));
+// }, 3000);
+
 let counterLanci = 0;
+let ultimoLancio = 0;
 
 const lanciaDado = (counterLanci) => {
   const generateNum = new Promise((resolve, reject) => {
     setTimeout(() => {
       const risultato = Math.floor(Math.random() * 6) + 1;
-      if (counterLanci % 5 == 0) {
-        reject('ops! il dado è caduto dal tavolo, rilancio');
-      } else {
+      risultato == ultimoLancio && console.log('Incredibile!');
+      ultimoLancio = risultato;
+      if (risultato) {
         resolve(risultato);
+      } else {
+        reject('Errore nel lancio del dado');
       }
     }, 5000);
   });
